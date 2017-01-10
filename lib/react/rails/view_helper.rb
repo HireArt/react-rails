@@ -5,7 +5,7 @@ module React
       # It should implement:
       #   - #setup(controller_instance)
       #   - #teardown(controller_instance)
-      #   - #react_component(name, props, options &block)
+      #   - #react_rails_component(name, props, options &block)
       # The default is {React::Rails::ComponentMount}
       mattr_accessor :helper_implementation_class
 
@@ -16,9 +16,9 @@ module React
       # created by the controller.
       #
       # Otherwise, make a new instance.
-      def react_component(*args, &block)
-        helper_obj = @__react_component_helper ||= helper_implementation_class.new
-        helper_obj.react_component(*args) { capture &block if block_given? }
+      def react_rails_component(*args, &block)
+        helper_obj = @__react_rails_component_helper ||= helper_implementation_class.new
+        helper_obj.react_rails_component(*args) { capture &block if block_given? }
       end
     end
   end

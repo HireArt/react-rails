@@ -1,7 +1,7 @@
 module React
   module Rails
     # This is the default view helper implementation.
-    # It just inserts HTML into the DOM (see {#react_component}).
+    # It just inserts HTML into the DOM (see {#react_rails_component}).
     #
     # You can extend this class or provide your own implementation
     # by assigning it to `config.react.view_helper_implementation`.
@@ -22,7 +22,7 @@ module React
       # Render a UJS-type HTML tag annotated with data attributes, which
       # are used by react_ujs to actually instantiate the React component
       # on the client.
-      def react_component(name, props = {}, options = {}, &block)
+      def react_rails_component(name, props = {}, options = {}, &block)
         options = {:tag => options} if options.is_a?(Symbol)
         if options.fetch(:camelize_props, camelize_props_switch)
           props = React.camelize_props(props)

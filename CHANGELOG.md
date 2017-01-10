@@ -18,7 +18,7 @@
 
 - Calling `setTimeout` or `clearTimeout` in server rendering will raise an informative error because they aren't supported #618
 - `prerender:` options will be passed to server renderer methods #641
-- `react_component(..., camelize_props:)` option will override the application default #642, #645
+- `react_rails_component(..., camelize_props:)` option will override the application default #642, #645
 - Ship with React.js 15.4.1 #646
 
 #### Deprecation
@@ -26,7 +26,7 @@
 #### Bug Fixes
 
 - use `['default']` accessor to support old JavaScript versions #619
-- `react_component` with a block will correctly render the content inside the `div`
+- `react_rails_component` with a block will correctly render the content inside the `div`
 
 ## 1.9.0 (October 6, 2016)
 
@@ -147,7 +147,7 @@
 #### New Features
 
 - Update to React 0.14.3 #412
-- `config.react.camelize_props = true` will camelize `react_component` prop keys #409
+- `config.react.camelize_props = true` will camelize `react_rails_component` prop keys #409
 
 #### Bug Fixes
 

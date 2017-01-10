@@ -21,14 +21,14 @@ module React
 
       def initialize(options={})
         controller = options[:controller]
-        @__react_component_helper = controller.__react_component_helper
+        @__react_rails_component_helper = controller.__react_rails_component_helper
       end
 
       # @return [String] Prerendered HTML for `component_name` with `options[:props]`
       def call(component_name, options, &block)
         props = options.fetch(:props, {})
         options = options.slice(:data, :aria, :tag, :class, :id).merge(prerender: true)
-        react_component(component_name, props, options, &block)
+        react_rails_component(component_name, props, options, &block)
       end
     end
   end

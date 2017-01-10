@@ -106,14 +106,14 @@ Under the hood, `react-rails` uses [ruby-babel-transpiler](https://github.com/ba
 
 ### Rendering & mounting
 
-`react-rails` includes a view helper (`react_component`) and an unobtrusive JavaScript driver (`react_ujs`)
+`react-rails` includes a view helper (`react_rails_component`) and an unobtrusive JavaScript driver (`react_ujs`)
 which work together to put React components on the page. You should require the UJS driver
  in your manifest after `react` (and after `turbolinks` if you use [Turbolinks](https://github.com/rails/turbolinks)).
 
 The __view helper__ puts a `div` on the page with the requested component class & props. For example:
 
 ```erb
-<%= react_component('HelloMessage', name: 'John') %>
+<%= react_rails_component('HelloMessage', name: 'John') %>
 <!-- becomes: -->
 <div data-react-class="HelloMessage" data-react-props="{&quot;name&quot;:&quot;John&quot;}"></div>
 ```
@@ -133,7 +133,7 @@ ReactRailsUJS.mountComponents()
 The view helper's signature is:
 
 ```ruby
-react_component(component_class_name, props={}, html_options={})
+react_rails_component(component_class_name, props={}, html_options={})
 ```
 
 - `component_class_name` is a string which names a globally-accessible component class. It may have dots (eg, `"MyApp.Header.MenuItem"`).
@@ -146,10 +146,10 @@ react_component(component_class_name, props={}, html_options={})
 
 ### Server rendering
 
-To render components on the server, pass `prerender: true` to `react_component`:
+To render components on the server, pass `prerender: true` to `react_rails_component`:
 
 ```erb
-<%= react_component('HelloMessage', {name: 'John'}, {prerender: true}) %>
+<%= react_rails_component('HelloMessage', {name: 'John'}, {prerender: true}) %>
 <!-- becomes: -->
 <div data-react-class="HelloMessage" data-react-props="{&quot;name&quot;:&quot;John&quot;}">
   <h1>Hello, John!</h1>
@@ -206,7 +206,7 @@ end
 or when mounting:
 
 ```erb
-<%= react_component('HelloMessage', {name: 'John'}, {camelize_props: true}) %>
+<%= react_rails_component('HelloMessage', {name: 'John'}, {camelize_props: true}) %>
 ```
 
 ### Rendering components instead of views
@@ -308,7 +308,7 @@ Note that the arguments for `oneOf` and `oneOfType` must be enclosed in single q
 
 ### Jbuilder & react-rails
 
-If you use Jbuilder to pass a JSON string to `react_component`, make sure your JSON is a stringified hash,
+If you use Jbuilder to pass a JSON string to `react_rails_component`, make sure your JSON is a stringified hash,
 not an array. This is not the Rails default -- you should add the root node yourself. For example:
 
 ```ruby
@@ -367,9 +367,9 @@ Any subclass of `ExecJSRenderer` may use those hooks (for example, `SprocketsRen
 
 ### Custom View Helper
 
-`react-rails` uses a "helper implementation" class to generate the output of the `react_component` helper. The helper is initialized once per request and used for each `react_component` call during that request. You can provide a custom helper class to `config.react.view_helper_implementation`. The class must implement:
+`react-rails` uses a "helper implementation" class to generate the output of the `react_rails_component` helper. The helper is initialized once per request and used for each `react_rails_component` call during that request. You can provide a custom helper class to `config.react.view_helper_implementation`. The class must implement:
 
-- `#react_component(name, props = {}, options = {}, &block)` to return a string to inject into the Rails view
+- `#react_rails_component(name, props = {}, options = {}, &block)` to return a string to inject into the Rails view
 - `#setup(controller_instance)`, called when the helper is initialized at the start of the request
 - `#teardown(controller_instance)`, called at the end of the request
 
